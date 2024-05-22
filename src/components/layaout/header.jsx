@@ -1,6 +1,6 @@
 // components/Header.jsx
 
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -12,10 +12,10 @@ import {
   Badge,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
+/*import SearchIcon from "@mui/icons-material/Search";*/
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Cart from "../cart";
+import Cart from '../cart/cart';
 
 const Header = () => {
   // Estado para controlar la apertura y cierre del carrito
@@ -30,6 +30,12 @@ const Header = () => {
   // Función para togglear el carrito
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
+  };
+
+  // Función para manejar clic en el botón de ejemplo
+  const handleButtonClick = () => {
+    console.log("¡Botón clickeado!");
+    // Aquí puedes agregar lógica adicional al hacer clic en el botón
   };
 
   return (
@@ -51,6 +57,11 @@ const Header = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Mi Tienda
           </Typography>
+
+          {/* Botón de ejemplo */}
+          <Button color="inherit" onClick={handleButtonClick}>
+            Ejemplo
+          </Button>
 
           {/* Barra de búsqueda */}
           <TextField
@@ -97,3 +108,4 @@ const Header = () => {
 };
 
 export default Header;
+

@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
 // components/ProductCard.jsx
-
+/* eslint-disable no-unused-vars */ 
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  CardActions,
-  Button,
-  CardActionArea,
-} from "@mui/material";
+/* eslint-enable no-unused-vars */
+// components/ProductCard.jsx
+
+import { useContext } from "react";
+
+import { Card, CardContent, CardMedia, Typography, CardActions, Button, CardActionArea } from "@mui/material";
+import { ProductContext } from '../context/productContext';
 
 // Componente para renderizar la tarjeta del producto
 const ProductCard = ({ product }) => {
+  const { añadir } = useContext(ProductContext);
+
   return (
     <Card
       sx={{
@@ -25,7 +25,6 @@ const ProductCard = ({ product }) => {
       }}
     >
       <CardActionArea>
-        {/* Imagen del producto */}
         <CardMedia
           component="img"
           height="200"
@@ -38,25 +37,25 @@ const ProductCard = ({ product }) => {
           }}
         />
         <CardContent>
-          {/* Nombre del producto */}
           <Typography gutterBottom variant="h6" component="div" noWrap>
             {product.name}
           </Typography>
-          {/* Descripción del producto */}
           <Typography variant="body2" color="text.secondary">
             {product.description}
           </Typography>
-          {/* Precio del producto */}
           <Typography variant="h6" component="div" sx={{ paddingTop: "8px" }}>
             ${product.price}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing sx={{ justifyContent: "flex-end" }}>
-        {/* Botón para añadir al carrito */}
+        <Button variant="contained" color="primary" onClick={() => añadir(product)}>
+          Añadir al carrito
+        </Button>
       </CardActions>
     </Card>
   );
 };
 
 export default ProductCard;
+
