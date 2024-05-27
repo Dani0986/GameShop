@@ -3,6 +3,7 @@ import Container from "@mui/material/Container";
 import ProductCard from "../product/productCard";
 import products from "../../components/product/products.json";
 import ProductsImages from "../../components/product/productsimages.json";
+import React from "react";
 
 // Estructura del producto y la imagen del producto
 const productsWithImages = products.map((product) => {

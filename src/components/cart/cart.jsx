@@ -1,9 +1,10 @@
-import  { useContext } from 'react';
+import React, { useContext } from 'react';
 import { List, Typography, Box, ListItem, ListItemText, Button } from '@mui/material';
 import { ProductContext } from '../context/productContext';
 
 const Cart = () => {
-  const { cart } = useContext(ProductContext);
+  const context = useContext(ProductContext);
+console.log(context);
 
   return (
     <Box sx={{ width: 320, p: 2 }}>
@@ -11,13 +12,13 @@ const Cart = () => {
         Carrito de Compras
       </Typography>
       <List>
-        {cart.map((item, index) => (
+        {context.cart.map((item, index) => (
           <ListItem key={index}>
             <ListItemText primary={item.name} secondary={`$${item.price}`} />
           </ListItem>
         ))}
       </List>
-      {cart.length > 0 && (
+      {context.cart.length > 0 && (
         <Button variant="contained" color="primary" fullWidth>
           Proceder al Pago
         </Button>

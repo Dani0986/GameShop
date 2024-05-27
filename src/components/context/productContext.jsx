@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import React, { useState, createContext } from "react";
 import PropTypes from 'prop-types';
 
 // Crear el contexto
@@ -9,8 +9,11 @@ export const ProductProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
   // Función para añadir un item al carrito
-  const añadir = (item) => {
-    setCart(prevCart => [...prevCart, item]);
+ // const añadir = (item) => {
+ //   setCart(prevCart => [...prevCart, item]);
+//  };
+  const añadir = (product) => {
+    setCart([...cart, product]);
   };
 
   ProductProvider.propTypes = {

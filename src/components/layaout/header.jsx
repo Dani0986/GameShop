@@ -1,6 +1,6 @@
 // components/Header.jsx
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,

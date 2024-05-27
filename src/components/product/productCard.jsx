@@ -1,12 +1,7 @@
 /* eslint-disable react/prop-types */
-// components/ProductCard.jsx
-/* eslint-disable no-unused-vars */ 
-import React from "react";
-/* eslint-enable no-unused-vars */
-// components/ProductCard.jsx
 
-import { useContext } from "react";
-
+import React, { useContext } from "react";
+/* eslint-disable react/prop-types */
 import { Card, CardContent, CardMedia, Typography, CardActions, Button, CardActionArea } from "@mui/material";
 import { ProductContext } from '../context/productContext';
 
