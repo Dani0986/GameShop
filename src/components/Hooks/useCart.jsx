@@ -1,15 +1,14 @@
-// hooks/useCart.jsx
-
 import React, { createContext, useContext } from 'react';
 import useLocalStorage from './useLocalStorage';
 import PropTypes from 'prop-types';
+
 const CartContext = createContext();
 
 export const useCart = () => {
   return useContext(CartContext);
 };
 
-export const CartProvider = ({ children }) => {
+const CartProvider = ({ children }) => {
   const [cart, setCart] = useLocalStorage('cart', []);
 
   CartProvider.propTypes = {
@@ -34,3 +33,6 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
+
+export default CartProvider;
+
