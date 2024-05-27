@@ -12,7 +12,7 @@ import {
   Badge,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-/*import SearchIcon from "@mui/icons-material/Search";*/
+import SearchIcon from "@mui/icons-material/Search"
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Cart from '../cart/cart';
@@ -50,6 +50,7 @@ const Header = () => {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
+            <SearchIcon/>
             <MenuIcon />
           </IconButton>
 

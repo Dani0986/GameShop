@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 
 import React, { useContext } from "react";
-/* eslint-disable react/prop-types */
 import { Card, CardContent, CardMedia, Typography, CardActions, Button, CardActionArea } from "@mui/material";
 import { ProductContext } from '../context/productContext';
 

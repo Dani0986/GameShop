@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const Form = ({ onSubmit }) => {
   const [name, setName] = useState('');
@@ -13,6 +14,8 @@ const Form = ({ onSubmit }) => {
     setName('');
     setEmail('');
   };
+
+
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -36,4 +39,7 @@ const Form = ({ onSubmit }) => {
   );
 };
 
+Form.propTypes = {
+  onSubmit: PropTypes.func.isRequired, // Validamos que onSubmit sea una función requerida
+};
 export default Form;
