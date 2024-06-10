@@ -10,12 +10,15 @@ import {
   TextField,
   Drawer,
   Badge,
+  ButtonBase,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search"
+import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Cart from '../cart/cart';
+import Cart from "../cart";
+import {NavLink} from "react-router-dom";
+import {useAuth} from "../../components/Hooks/useAuth"
 
 const Header = () => {
   // Estado para controlar la apertura y cierre del carrito
@@ -31,16 +34,15 @@ const Header = () => {
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
+// Le pones el estado contrario al que tenga
+  
+const {user, logout} = useAuth();
+ 
 
-  // Función para manejar clic en el botón de ejemplo
-  const handleButtonClick = () => {
-    console.log("¡Botón clickeado!");
-    // Aquí puedes agregar lógica adicional al hacer clic en el botón
-  };
 
   return (
     <>
-      <AppBar position="static">
+         <AppBar position="static">
         <Toolbar>
           {/* Botón del menú */}
           <IconButton
@@ -50,7 +52,6 @@ const Header = () => {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <SearchIcon/>
             <MenuIcon />
           </IconButton>
 
@@ -59,10 +60,17 @@ const Header = () => {
             Mi Tienda
           </Typography>
 
-          {/* Botón de ejemplo */}
-          <Button color="inherit" onClick={handleButtonClick}>
-            Ejemplo
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            HOLA {user.name}
+          </Typography>
+          <NavLink to="/">
+          <Button 
+            variant="text"
+            color="inherit"
+          >
+            HOME
           </Button>
+          </NavLink>
 
           {/* Barra de búsqueda */}
           <TextField
@@ -76,8 +84,52 @@ const Header = () => {
             margin="normal"
             sx={{ backgroundColor: "white", borderRadius: 1, mr: 2 }}
           />
+          <NavLink to="/login">
+          {!user &&(
+          <Button 
+            variant="text"
+            color="inherit"
+          >LOGIN
+          </Button>
+          )}
+          </NavLink>
+
+          <NavLink to="/">
+            {/* Aqui le pongo la condicion para que solo me rederice el boton si existe user */}
+           {user &&(
+          <Button 
+            variant="text"
+            color="inherit"
+            onClick={logout}
+          >LOGOUT
+          </Button>
+          )}
+          </NavLink>
+
+          <NavLink to="dashboard/settings">
+            {/* Aqui le pongo la condicion para que solo me rederice el boton si existe user */}
+           {user &&(
+          <Button 
+            variant="text"
+            color="inherit"
+          >SETTINGS
+          </Button>
+          )}
+          </NavLink>
+
+          <NavLink to="dashboard/profile">
+            {/* Aqui le pongo la condicion para que solo me rederice el boton si existe user */}
+           {user &&(
+          <Button 
+            variant="text"
+            color="inherit"
+          >PROFILE
+          </Button>
+          )}
+          </NavLink>
 
           {/* Icono de cuenta de usuario */}
+          <NavLink to="/signUp">
           <IconButton
             size="large"
             edge="end"
@@ -85,13 +137,15 @@ const Header = () => {
             aria-controls="menu-appbar"
             aria-haspopup="true"
             color="inherit"
+           
           >
             <AccountCircle />
           </IconButton>
+          </NavLink>
 
           {/* Icono del carrito de compras */}
           <IconButton color="inherit" onClick={toggleCart}>
-            <Badge badgeContent={4} color="secondary">
+            <Badge badgeContent={1} color="secondary">
               {" "}
               {/* Dinamiza esta cantidad según el estado del carrito */}
               <ShoppingCartIcon className="shake-animation" />
@@ -110,3 +164,94 @@ const Header = () => {
 
 export default Header;
 
+/*
+// components/Header.jsx
+// ...
+import React, { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  TextField,
+  Drawer,
+  Badge,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Cart from "../cart";
+
+
+const Header = () => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const handleSearchInput = (event) => {
+    const query = event.target.value;
+    console.log(query);
+  };
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
+  return (
+    <>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Mi Tienda
+          </Typography>
+          <TextField
+            id="search-bar"
+            className="text"
+            onChange={handleSearchInput}
+            label="Buscar productos"
+            variant="outlined"
+            placeholder="Buscar..."
+            size="small"
+            margin="normal"
+            sx={{ backgroundColor: "white", borderRadius: 1, mr: 2 }}
+          />
+          <IconButton
+            size="large"
+            edge="end"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          <IconButton color="inherit" onClick={toggleCart}>
+            <Badge badgeContent={1} color="secondary">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
+          */
+          {/* Agregamos el botón para abrir/cerrar el Drawer del carrito */}
+ /*         <IconButton color="inherit" onClick={toggleCart}>
+            <ShoppingCartIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
+      <Drawer anchor="right" open={isCartOpen} onClose={toggleCart}>
+        <Cart closeCart={toggleCart} />
+      </Drawer>
+    </>
+  );
+};
+
+export default Header;
+*/

@@ -1,13 +1,22 @@
 /* eslint-disable react/prop-types */
+// components/ProductCard.jsx
 
-import React, { useContext } from "react";
-import { Card, CardContent, CardMedia, Typography, CardActions, Button, CardActionArea } from "@mui/material";
-import { ProductContext } from '../context/productContext';
+
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  CardActions,
+  Button,
+  CardActionArea,
+} from "@mui/material";
+import { useCart } from "../../hooks/useCart";
 
 // Componente para renderizar la tarjeta del producto
 const ProductCard = ({ product }) => {
-  const { añadir } = useContext(ProductContext);
-
+  const {dispatch} = useCart();
+  const addProduct = () => dispatch({type: "add", item: product})
   return (
     <Card
       sx={{
@@ -19,6 +28,7 @@ const ProductCard = ({ product }) => {
       }}
     >
       <CardActionArea>
+        {/* Imagen del producto */}
         <CardMedia
           component="img"
           height="200"
@@ -31,25 +41,28 @@ const ProductCard = ({ product }) => {
           }}
         />
         <CardContent>
+          {/* Nombre del producto */}
           <Typography gutterBottom variant="h6" component="div" noWrap>
             {product.name}
           </Typography>
+          {/* Descripción del producto */}
           <Typography variant="body2" color="text.secondary">
             {product.description}
           </Typography>
+          {/* Precio del producto */}
           <Typography variant="h6" component="div" sx={{ paddingTop: "8px" }}>
             ${product.price}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing sx={{ justifyContent: "flex-end" }}>
-        <Button variant="contained" color="primary" onClick={() => añadir(product)}>
-          Añadir al carrito
-        </Button>
+        {/* Botón para añadir al carrito */}      
+        {/* Añado el boton con la propiedad addProduct del context y el producto a añadir*/}
+        <Button onClick={()=>addProduct()}>Añadir al carrito</Button>        
+        
       </CardActions>
     </Card>
   );
 };
 
 export default ProductCard;
-

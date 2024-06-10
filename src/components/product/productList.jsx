@@ -1,9 +1,8 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import ProductCard from "../product/productCard";
-import products from "../../components/product/products.json";
-import ProductsImages from "../../components/product/productsimages.json";
-import React from "react";
+import ProductCard from "./productCard";
+import products from "./products.json";
+import ProductsImages from "./productsimages.json";
 
 // Estructura del producto y la imagen del producto
 const productsWithImages = products.map((product) => {
@@ -11,7 +10,7 @@ const productsWithImages = products.map((product) => {
   if (image) {
     product.images = image.images;
   }
-  return product;
+  return product
 });
 
 const ProductsList = () => {
@@ -27,7 +26,7 @@ const ProductsList = () => {
         ))}
       </Grid>
     </Container>
-  );
+  )
 };
 
 export default ProductsList;
