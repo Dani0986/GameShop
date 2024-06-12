@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { Home } from "../home";
-import { AnotherComponent } from "../another-component"; // Asegúrate de importar tus componentes
+import Home from "../home"; // Asegúrate de que la ruta sea correcta
 
 export default function PagesRoutes() {
   const navigate = useNavigate();
@@ -15,7 +14,6 @@ export default function PagesRoutes() {
       <button onClick={handleNavigation}>Go to Another Route</button>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/another-route" element={<AnotherComponent />} />
       </Routes>
     </div>
   );

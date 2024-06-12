@@ -1,12 +1,12 @@
 import { BasicPage } from "../../src/components/user/BasicPage";
 import Header from "../components/layaout/header";
 
-export const SignUpPage = () => {
+export const SettingPage = () => {
   return (
     <div>
     <Header />
       <BasicPage
-      title='SignUpPage'
+      title='SettingPage'
       description='Welcome to SignUp'
     />
     </div>

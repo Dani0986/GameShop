@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import PropTypes from 'prop-types';
 const HomeLayout = ({ children }) => {
     return (
@@ -14,4 +14,4 @@ export default HomeLayout;
 
 HomeLayout.propTypes = {
     children: PropTypes.node.isRequired,
-  };
+  };*/

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */ // Desactivamos la regla de ESLint para la validación de tipos de props en este archivo.
 
 import { useNavigate } from "react-router-dom";
-import {useAuth} from "../hooks/useAuth";
+import {useAuth} from "../Hooks/useAuth";
 // Importamos useNavigate de react-router-dom para la navegación programática.
 // Importamos useAuth, un hook personalizado para acceder al contexto de autenticación.
 // Definimos el componente AppBar, que recibe una prop llamada pages.
