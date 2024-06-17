@@ -2,7 +2,7 @@
 //Para saber si estoy logeado y con ello a que rutas voy a poder acceder
 //tengo que saber la informacion almecenada en el localStorage.
 //Creamos un contexto que va a ser accesible desde las distintas partes de mi aplicacion
-
+/*
 import { useState } from "react";
 
 // Definimos un hook personalizado llamado useLocalStorage
@@ -54,4 +54,4 @@ export const useLocalStorage = (keyName,defaultValue) => {
     return[storedValue,setValue];
     // Devolvemos un array con el valor almacenado y la función para actualizarlo,
     // similar a como useState devuelve un estado y su función de actualización.
-};
+};*/

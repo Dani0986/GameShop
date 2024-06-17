@@ -1,5 +1,5 @@
 //Aqui desarrollamos un contexto para manejar el acceso de los usuarios
-
+/*
 import { createContext, useMemo } from "react";
 import {useLocalStorage} from "../Hooks/useLocalStorage"
 import { useNavigate } from "react-router-dom";
@@ -49,4 +49,4 @@ AuthProvider.propTypes = {
   //Devolvemos el Provider con sus valores asignados
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 
-}
+}*/

@@ -23,7 +23,7 @@ export default function PagesRoutes() {
     </Routes>
   );
 }
-*/
+*/ /*
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/home"; // Asegúrate de que la ruta sea correcta
@@ -40,6 +40,17 @@ export default function PagesRoutes() {
       <Route path="/signUp" element={<SignUpPage />} />
       <Route path="/dashboard/profile" element={<ProfilePage />} />
       <Route path="/dashboard/settings" element={<SettingPage />} />
+    </Routes>
+  );
+}*/
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Home } from "./home";
+
+export default function PagesRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
     </Routes>
   );
 }

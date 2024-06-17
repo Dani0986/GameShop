@@ -1,20 +1,12 @@
-import React from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Layout } from "../../components/layaout";
+import ProductList from "../../components/product/productList";
 
-
-export default function PagesRoutes() {
-  const navigate = useNavigate();
-
-  const handleNavigation = () => {
-    navigate("/another-route");
-  };
-
+export const Home = () => {
   return (
-    <div>
-      
-      <Routes>
-      <button onClick={handleNavigation}>Go to Another Route</button>
-      </Routes>
-    </div>
+    <Layout>
+      {/* Todo el contenido de la página Home */}
+      <ProductList />
+      {/* Más contenido... */}
+    </Layout>
   );
-}
+};
