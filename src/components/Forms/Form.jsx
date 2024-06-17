@@ -2,7 +2,7 @@
 
 
 import {useForm} from "react-hook-form";
-import {useAuth} from "../Hooks/useAuth"
+import {useAuth} from "../../hooks/useAuth"
 import { useState } from "react";
 
 //Este hook nos lo traemos de react-hook-form
