@@ -1,5 +1,5 @@
-import { Layout } from "../../components/layaout";
-import ProductList from "../../components/product/productList";
+import { Layout } from "../../layaout/layaout";
+import ProductList from "../../product/productList";
 
 export const Home = () => {
   return (
