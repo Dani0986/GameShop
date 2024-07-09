@@ -1,5 +1,5 @@
 // App.jsx
-
+/*
 import React from "react";
 import { CartProvider } from "./context/CartContext";
 import ProductCard from "./components/ProductCard";
@@ -20,4 +20,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App;*/
