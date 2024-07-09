@@ -16,6 +16,25 @@ const styles = {
   },
 };
 
+const games = [
+  {
+    _id: 1,
+    name: "Juego 1",
+    price: 29.99,
+    year: 2020,
+    image: "https://via.placeholder.com/200",
+    characters: ["1", "2"], // IDs de los personajes
+  },
+  {
+    _id: 2,
+    name: "Juego 2",
+    price: 39.99,
+    year: 2021,
+    image: "https://via.placeholder.com/200",
+    characters: ["3", "4"], // IDs de los personajes
+  },
+  // otros juegos
+];
 const GameList = () => {
   const { games } = useContext(GameContext);
 

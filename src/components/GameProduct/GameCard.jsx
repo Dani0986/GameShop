@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -13,40 +13,14 @@ import { CharactersContext } from "../../context/CharacterContext";
 const GameCard = ({ game }) => {
   const characters = useContext(CharactersContext);
   const [showCharacters, setShowCharacters] = useState(false);
-  const [gameCharacters, setGameCharacters] = useState([]);
-  const [imageLoading, setImageLoading] = useState(true); // Estado para manejar la carga de la imagen
-
-  useEffect(() => {
-    const fetchCharacters = async () => {
-      try {
-        const charactersDetails = await Promise.all(
-          game.characters.map(async (characterId) => {
-            const response = await fetch(`/api/characters/${characterId}`);
-            if (!response.ok) {
-              throw new Error(`Error al obtener detalles del personaje con ID: ${characterId}`);
-            }
-            return await response.json();
-          })
-        );
-        setGameCharacters(charactersDetails);
-      } catch (error) {
-        console.error("Error al obtener los detalles de los personajes:", error.message);
-      }
-    };
-
-    if (showCharacters && game.characters.length > 0) {
-      fetchCharacters();
-    } else {
-      setGameCharacters([]); // Resetear los personajes si showCharacters es falso
-    }
-  }, [showCharacters, game.characters]);
+  const [imageLoading, setImageLoading] = useState(true);
 
   const handleToggleCharacters = () => {
     setShowCharacters(!showCharacters);
   };
 
   const handleImageLoaded = () => {
-    setImageLoading(false); // Cuando la imagen se carga correctamente
+    setImageLoading(false);
   };
 
   return (
@@ -60,18 +34,17 @@ const GameCard = ({ game }) => {
       }}
     >
       <CardActionArea onClick={handleToggleCharacters}>
-        {/* Renderizar CardMedia solo si game.image tiene una URL */}
         {game.image && (
           <CardMedia
             component="img"
             height="200"
-            image={game.image} // Asegúrate de que game.image contenga la URL correcta
+            image={game.image}
             alt={game.name}
-            onLoad={handleImageLoaded} // Manejar la carga de la imagen
+            onLoad={handleImageLoaded}
             sx={{
               objectFit: "cover",
               borderRadius: "20px 20px 0 0",
-              display: imageLoading ? "none" : "block", // Ocultar hasta que la imagen se cargue
+              display: imageLoading ? "none" : "block",
             }}
           />
         )}
@@ -82,9 +55,13 @@ const GameCard = ({ game }) => {
           <Typography variant="body2" color="text.secondary">
             Año: {game.year}
           </Typography>
-          {game.price && (
+          {game.price !== undefined ? (
             <Typography variant="h6" component="div" sx={{ paddingTop: "8px" }}>
-              ${game.price}
+              Precio: ${game.price.toFixed(2)}
+            </Typography>
+          ) : (
+            <Typography variant="h6" component="div" sx={{ paddingTop: "8px" }}>
+              Precio no disponible
             </Typography>
           )}
           {showCharacters && (
@@ -100,7 +77,7 @@ const GameCard = ({ game }) => {
                       <CardMedia
                         component="img"
                         height="100"
-                        image={character.image} // Asegúrate de que character.image contenga la URL correcta
+                        image={character.image}
                         alt={character.name}
                         sx={{
                           objectFit: "cover",
@@ -131,6 +108,8 @@ const GameCard = ({ game }) => {
 };
 
 export default GameCard;
+
+
 
 
 
