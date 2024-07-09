@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { GameContext } from '../../context/GameContext';
-import  GameCard  from "../../components/GameProduct/GameCard"; // Importa el componente GameCard
+import GameCard from '../../components/GameProduct/GameCard'; // Asegúrate de que la ruta sea correcta
 
 const styles = {
   gameList: {
@@ -35,3 +35,4 @@ const GameList = () => {
 };
 
 export default GameList;
+
