@@ -1,29 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Asegúrate de importar Link desde react-router-dom
 import { useAuth } from '../Hooks/useAuth';
-import { useUsuarios } from '../context/useUsuarios';
-import styled from 'styled-components';
-
-const Button = styled.button`
-  background-color: grey; 
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
-  &:hover {
-    background-color: #45a049;
-  }
-`;
+import { useUsuarios } from '../Hooks/useUsuarios';
 
 export const LoginPage = () => {
   const { setUsuario, usuarios } = useUsuarios();
   const { login } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -33,6 +16,7 @@ export const LoginPage = () => {
     if (usuario) {
       setUsuario(usuario);
       login(usuario);
+      navigate('/'); // Redirige a la página principal o donde sea necesario después del login
     } else {
       console.log('Credenciales incorrectas');
     }
@@ -50,9 +34,11 @@ export const LoginPage = () => {
           <label htmlFor="password">Contraseña:</label>
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
-        <Button type="submit">Iniciar sesión</Button>
+        <button type="submit">Iniciar sesión</button>
       </form>
-      <p>¿No tienes una cuenta? <Link to="/registro">Regístrate</Link></p>
+      <p>¿No tienes una cuenta? <Link to="/registro">Regístrate</Link></p> {/* Aquí se utiliza Link correctamente */}
     </div>
   );
 };
+
+export default LoginPage;

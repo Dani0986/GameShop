@@ -3,7 +3,7 @@
 import React from 'react';
 import { UserForm } from '../components/userForm';
 import { RegistroPage } from './RegistroPage';
-import { LoginPage } from './LoginPage';
+import { LoginPage } from '../pages/LoginPage';
 
 const MainPage = () => {
   return (

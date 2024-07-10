@@ -13,13 +13,16 @@ import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { CharactersProvider } from './context/CharacterContext';
+import { UsuariosProvider } from './context/UsuariosContext';
 import './index.css';
 
 // Utilizando ReactDOM.createRoot
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+     <UsuariosProvider>
     <CharactersProvider>
       <App />
     </CharactersProvider>
+    </UsuariosProvider>
   </React.StrictMode>
 );

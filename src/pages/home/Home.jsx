@@ -1,4 +1,6 @@
 import React from 'react';
+import { RegistroPage } from '../RegistroPage';
+import { LoginPage } from '../LoginPage';
 
 const styles = {
   home: {
@@ -14,15 +16,19 @@ const styles = {
   },
 };
 
- const Home = () => {
+export const Home = () => {
   return (
     <div style={styles.home}>
       <h1 style={styles.title}>Bienvenido a la Tienda de Videojuegos</h1>
       <p style={styles.description}>
         Explora nuestra amplia colección de videojuegos y encuentra tu próximo favorito.
       </p>
+      <RegistroPage />
+      <LoginPage />
     </div>
   );
 };
-export { Home };
+
+export default Home;
+
 
