@@ -1,35 +1,31 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
-//* GENERO AQUÍ EL STYLED COMPONENTS, PORQUE NO ME FUNCIONA BIEN EN CSS
 const Button = styled.button`
   background-color: grey; 
-  border: none; /* Sin borde */
-  color: white; /* Color del texto */
-  padding: 15px 32px; /* Relleno */
-  text-align: center; /* Alineación del texto */
-  text-decoration: none; /* Sin subrayado */
-  display: inline-block; /* Elemento en línea */
-  font-size: 16px; /* Tamaño de la fuente */
-  margin: 4px 2px; /* Margen */
-  cursor: pointer; /* Cursor de puntero */
-  border-radius: 4px; /* Bordes redondeados */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
   &:hover {
-    background-color: #45a049; /* Color de fondo al pasar el ratón */
+    background-color: #45a049;
   }
 `;
 
-export const RegistroPage = () =>{
+export const RegistroPage = () => {
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [image, setImage] = useState(null); 
+  const [image, setImage] = useState(null);
 
-  //* UN PERSONALIZADO QUE HACE LAS EQUIVALENCIAS ENTRE L OQUE RECIBE PRO INPUTS Y L OQUE MANDA AL
- //* ENDPOINT DE REGISTRO. ES ASINCRONO PORQUE LO TRAE DE ABAJO DE LOS INPUT
- //* LO HACE CON UNA FUNCIÓN DE JAVASCRIPT FORMADATA AUE CONSTRUYE CLAVES VALOR
   const onSubmitCustom = async (data) => {
     try {
       const formData = new FormData();
@@ -39,17 +35,15 @@ export const RegistroPage = () =>{
       formData.append('Email', data.Email);
       formData.append('Rol', data.Rol);
       formData.append('Contrasena', data.Contrasena);
-      formData.append('Imagen', image); 
-      formData.append('Nacimiento', data.Nacimiento); 
+      formData.append('Imagen', image);
+      formData.append('Nacimiento', data.Nacimiento);
 
-   //* Y MANDA TODO EL FORMADATA AL ENDPOINT CON LOS HEADERS Y L OQUE HA IDO ÑADIENDO 
-   //* CON AXIOS CON MÉTODO POST
       await axios.post('http://localhost:8081/api/v1/users/registerLargo', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-   //* Y TE MANDA AL LOGIN
+
       navigate('/login');
     } catch (error) {
       console.error('Error al registrar:', error);
@@ -57,19 +51,13 @@ export const RegistroPage = () =>{
   };
 
   const handleImageChange = (event) => {
-    // Actualiza el estado de la imagen cuando se selecciona un archivo
     setImage(event.target.files[0]);
   };
 
   return (
     <div>
-      <div id="logoentrada" style={{ marginTop: "75px " }}>
-        <img src="" alt="Captura de pantalla" />
-      </div>
-  {/* //* LE METO EL SUBMITCUSOTM A LSO INPUT Y LOS CREO CON EL HOOK DE REACKT-HOOK-FORM USEFORM 
-  //* EL REGISTER LO REGISTRA*/}
       <form onSubmit={handleSubmit(onSubmitCustom)}>
-        <div className="form-group" id="primerinputlogin">
+        <div className="form-group">
           <label htmlFor="Nombre">Nombre</label>
           <input type="text" id="Nombre" {...register("Nombre", { required: 'Nombre obligatorio' })} />
           {errors.Nombre && <p>{errors.Nombre.message}</p>}
@@ -105,17 +93,14 @@ export const RegistroPage = () =>{
           {errors.Nacimiento && <p>{errors.Nacimiento.message}</p>}
         </div>
         <div className="form-group">
-          {/* //* LA IMAGEN ES TIPO FILE */}
           <label htmlFor="Imagen">Imagen</label>
           <input type="file" id="Imagen" onChange={handleImageChange} />
         </div>
-          <Button type="submit" id="botonentrar">Regístrate</Button>
+        <Button type="submit">Regístrate</Button>
         <br />
         {"o "}
-        <Link to="/login" id="linkregistro">
-          {"inicia sesión"}
-        </Link>
+        <Link to="/login">inicia sesión</Link>
       </form>
     </div>
   );
-}
+};

@@ -1,19 +1,13 @@
-// Formulario.js
-import { useForm } from "react-hook-form";
-import { useAuth } from "../../hooks/useAuth";
-import { useState } from "react";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../Hooks/useAuth';
 
-function Formulario() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
+export const UserForm = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const { login } = useAuth();
 
   const onSubmit = (data) => {
-    console.log("data", data);
+    console.log('data', data);
     login(data);
   };
 
@@ -37,41 +31,11 @@ function Formulario() {
       </div>
 
       <div>
-        <label htmlFor="surname">Apellidos</label>
-        <input
-          type="text"
-          id="surname"
-          {...register("surname", {
-            required: "El apellido es obligatorio",
-            minLength: {
-              value: 2,
-              message: "El apellido debe tener al menos dos caracteres",
-            },
-          })}
-          placeholder="Apellidos"
-        />
-        {errors.surname && <p>{errors.surname.message}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="birth">Fecha de nacimiento</label>
-        <input
-          type="text"
-          id="birth"
-          {...register("birth", {
-            valueAsDate: true,
-          })}
-          placeholder="Fecha de nacimiento"
-        />
-        {errors.birth && <p>{errors.birth.message}</p>}
-      </div>
-
-      <div>
         <label htmlFor="email">Email</label>
         <input
           id="email"
           {...register("email", {
-            required: "El correo electronico es obligatorio",
+            required: "El correo electrónico es obligatorio",
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
               message: "Formato de correo electrónico no válido",
@@ -88,7 +52,7 @@ function Formulario() {
           type="password"
           id="password"
           {...register("password", {
-            required: "La contraseña es obligatoria",
+            required: true,
             pattern: {
               value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,}$/,
               message: "Contraseña no válida",
@@ -98,9 +62,8 @@ function Formulario() {
         />
         {errors.password && <p>{errors.password.message}</p>}
       </div>
+
       <button type="submit">Submit</button>
     </form>
   );
-}
-
-export default Formulario;
+};

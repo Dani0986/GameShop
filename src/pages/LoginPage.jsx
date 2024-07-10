@@ -1,135 +1,58 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import axios from 'axios';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../Hooks/useAuth';
+import { useUsuarios } from '../context/useUsuarios';
 import styled from 'styled-components';
-import { useUsuarios } from '../hooks/useUsuarios'; // Importar la función useConductores
 
-//* GENERO AQUÍ EL STYLED COMPONENTS, PORQUE NO ME FUNCIONA BIEN EN CSS
 const Button = styled.button`
   background-color: grey; 
-  border: none; /* Sin borde */
-  color: white; /* Color del texto */
-  padding: 15px 32px; /* Relleno */
-  text-align: center; /* Alineación del texto */
-  text-decoration: none; /* Sin subrayado */
-  display: inline-block; /* Elemento en línea */
-  font-size: 16px; /* Tamaño de la fuente */
-  margin: 4px 2px; /* Margen */
-  cursor: pointer; /* Cursor de puntero */
-  border-radius: 4px; /* Bordes redondeados */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
   &:hover {
-    background-color: #45a049; /* Color de fondo al pasar el ratón */
+    background-color: #45a049;
   }
 `;
 
 export const LoginPage = () => {
-  //* LLAMO A LOS CONTEXTOS Y LSO ESTADOS
+  const { setUsuario, usuarios } = useUsuarios();
   const { login } = useAuth();
-  const [userLogin, setUserLogin] = useState({ correo: "", contraseña: "" });
-  const [errors, setErrors] = useState({ correo: "", contraseña: "" });
-  const [usuarioNoEncontrado, setUsuarioNoEncontrado] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const usuario = useUsuarios();
-
-  const handleInput = (ev) => {
-    const { name, value } = ev.target;
-    setUserLogin({ ...userLogin, [name]: value });
-    //* Limpiar el error cuando el usuario empieza a escribir DE NEUVO
-    setErrors({ ...errors, [name]: "" }); 
-    //* Ocultar el mensaje de "Conductor no encontrado" cuando el usuario empieza a escribir de nuevo
-    setUsuarioNoEncontrado(false); 
-  };
-//* UN HANDLESBMIT PARA PREVENIR EL COMPORTAMIENTO PREESTABLECIDO DEL BOTÓN AL ENVIAR
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const newErrors = { correo: "", contraseña: "" };
-//* SI NO HAY CORREO, MENSAJE
-    if (!userLogin.correo) {
-      newErrors.correo = "Correo obligatorio";
-    }
-//* SI NO HAY CONTRASEÑA, MENSAJE
-    if (!userLogin.contraseña) {
-      newErrors.contraseña = "Contraseña obligatoria";
-    }
-
-    if (newErrors.correo || newErrors.contraseña) {
-      setErrors(newErrors);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const usuario = usuarios.find(u => u.Email === email && u.Contrasena === password);
+    if (usuario) {
+      setUsuario(usuario);
+      login(usuario);
     } else {
-      try {
-     //* BUSCO QUE EL EMAIL DEL CONDUCTOR EXISTA EN BBDD 
-        const usuarioEncontrado = usuario.find(usuario => usuario.Email === userLogin.correo);
-  //* SI LO ENCUENTRA, HACE LOGIN 
-  //* NO SÉ MUY BIEN CÓMO, LLAMANDO A LA FUNCIÓN LOGIN DEL CONTEXTO USEAUTH
-  //* QUE HACE UN SET DEL USUARIO Y LO REDIRIGE
-        if (usuarioEncontrado) {
-          login(userLogin);
-        } else {
-  //* SI NO, LANZA ERROR
-          console.log('usuario no encontrado');
-          setUsuarioNoEncontrado(true); // Mostrar el mensaje de "Conductor no encontrado"
-        }
-      } catch (error) {
-        console.error('Error al obtener los usuario:', error);
-      }
+      console.log('Credenciales incorrectas');
     }
   };
 
   return (
     <div>
-        <div id="logoentrada" style={{ marginTop: "75px " }}>
-        <img
-          src=""
-          alt="Captura de pantalla"
-        />
-        {/* //* GENERAMOS UN FORMULARIO CO SU HANDLESUBMIT PERSONALIZADO Y CON 
-        //* INPUT PARA CORREO Y CONTRASEÑA */}
-        <form onSubmit={handleSubmit} noValidate>
-          <div id="primerinputlogin">
-            <span>
-              Correo
-              <label htmlFor="correo">
-                <input
-                  type="text"
-                  name="correo"
-                  id="correo"
-            //*MANDA EL VALOR Y ACTUALIZA EL ESTADO DE USUARIO
-                  value={userLogin.correo}
-                  onChange={handleInput}
-                />
-              </label>
-              {errors.correo && <p style={{ color: "red" }}>{errors.correo}</p>}
-              {usuarioNoEncontrado && <p style={{ color: "red" }}>usuario no encontrado</p>} {/* Mostrar el mensaje de "Conductor no encontrado" si es necesario */}
-            </span>
-          </div>
-          <div>
-            <span>
-              Contraseña
-              <label htmlFor="contraseña">
-                <input
-                  type="password"
-                  name="contraseña"
-                  id="contraseña"
-                        //*MANDA EL VALOR Y ACTUALIZA EL ESTADO DE USUARIO
-                  value={userLogin.contraseña}
-                  onChange={handleInput}
-                />
-              </label>
-              {errors.contraseña && <p style={{ color: "red" }}>{errors.contraseña}</p>}
-            </span>
-          </div>
-   
-          <Button type="submit" id="botonentrar">Entra</Button>
-         
-        </form>
-        <span>
-          {"o "}
-          <Link to
-="/registro" id="linkregistro">
-{"regístrate"}
-</Link>
-</span>
-</div>
-</div>
-);
+      <h2>Inicia sesión</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">Correo:</label>
+          <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+        <div>
+          <label htmlFor="password">Contraseña:</label>
+          <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
+        <Button type="submit">Iniciar sesión</Button>
+      </form>
+      <p>¿No tienes una cuenta? <Link to="/registro">Regístrate</Link></p>
+    </div>
+  );
 };
