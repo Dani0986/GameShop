@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 import Navbar from './components/GameProduct/NavBar';
 import { BaseTheme } from "./theme/base";
@@ -14,6 +14,7 @@ import LoginPage from './pages/LoginPage';
 import { CartProvider } from './context/cartContext';
 import { GameProvider } from './context/GameContext';
 import { AuthProvider } from './context/authContext';
+import { ComentariosProvider } from './context/ComentariosContext';
 
 const styles = {
   app: {
@@ -29,17 +30,19 @@ const App = () => {
         <AuthProvider>
           <CartProvider>
             <GameProvider>
-              <div style={styles.app}>
-                <Navbar />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/games" element={<GameList />} />
-                  <Route path="/games/:id" element={<GameDetail />} />
-                  <Route path="/main" element={<MainPage />} />
-                  <Route path="/registro" element={<RegistroPage />} />
-                  <Route path="/login" element={<LoginPage />} />
-                </Routes>
-              </div>
+              <ComentariosProvider> {/* Asegúrate de que esta etiqueta abre aquí */}
+                <div style={styles.app}>
+                  <Navbar />
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/games" element={<GameList />} />
+                    <Route path="/games/:id" element={<GameDetail />} />
+                    <Route path="/main" element={<MainPage />} />
+                    <Route path="/registro" element={<RegistroPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                  </Routes>
+                </div>
+              </ComentariosProvider> {/* Asegúrate de que esta etiqueta cierra aquí */}
             </GameProvider>
           </CartProvider>
         </AuthProvider>
