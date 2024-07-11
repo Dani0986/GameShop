@@ -1,25 +1,4 @@
-/*import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
 
-const GameContext = createContext();
-
-export const GameProvider = ({ children }) => {
-  const [games, setGames] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/games/getAll')
-      .then(response => setGames(response.data))
-      .catch(error => console.error(error));
-  }, []);
-
-  return (
-    <GameContext.Provider value={{ games, setGames }}>
-      {children}
-    </GameContext.Provider>
-  );
-};
-
-export default GameContext;*/
 
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,9 +9,12 @@ import {
   CardActionArea,
 } from "@mui/material";
 import { CharactersContext } from "../../context/CharacterContext";
+import { useCart } from "../../context/cartContext";
 
-const GameCard = ({ game }) => {
+export const GameCard = ({ game }) => {
   const characters = useContext(CharactersContext);
+  const { addToCart } = useCart(); // Obtener addToCart del contexto
+
   const [showCharacters, setShowCharacters] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
 
@@ -21,6 +24,11 @@ const GameCard = ({ game }) => {
 
   const handleImageLoaded = () => {
     setImageLoading(false);
+  };
+
+  const handleAddToCart = () => {
+    addToCart(game); // Agregar el juego actual al carrito
+    console.log(`Juego añadido al carrito: ${game.name}`);
   };
 
   return (
@@ -55,9 +63,9 @@ const GameCard = ({ game }) => {
           <Typography variant="body2" color="text.secondary">
             Año: {game.year}
           </Typography>
-          {game.price !== undefined ? (
+          {game.score !== undefined ? (
             <Typography variant="h6" component="div" sx={{ paddingTop: "8px" }}>
-              Precio: ${game.price.toFixed(2)}
+              Precio: {game.score} Euros
             </Typography>
           ) : (
             <Typography variant="h6" component="div" sx={{ paddingTop: "8px" }}>
@@ -98,7 +106,7 @@ const GameCard = ({ game }) => {
           variant="contained"
           color="primary"
           sx={{ borderRadius: "20px" }}
-          onClick={() => console.log(`Juego añadido al carrito: ${game.name}`)}
+          onClick={handleAddToCart} // Manejar la función de añadir al carrito
         >
           Añadir al carrito
         </Button>
@@ -108,6 +116,7 @@ const GameCard = ({ game }) => {
 };
 
 export default GameCard;
+
 
 
 

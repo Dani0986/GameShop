@@ -1,6 +1,8 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { GameContext } from '../../context/GameContext';
+
+
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import GameCard from '../../components/GameProduct/GameCard'; // Asegúrate de que la ruta sea correcta
 
 const styles = {
@@ -8,47 +10,58 @@ const styles = {
     padding: '20px',
     backgroundColor: 'lightgray',
   },
-  gameItem: {
-    margin: '10px 0',
-    listStyle: 'none',
-    borderBottom: '1px solid gray',
+  gameItemContainer: {
+    marginBottom: '20px',
     padding: '10px',
+    display: 'flex',
+    alignItems: 'flex-start', // Alinear al inicio para ajustar las descripciones
+  },
+  gameItem: {
+    flex: 1, // La tarjeta ocupará todo el espacio disponible
+    marginRight: '20px', // Espacio entre la tarjeta y la descripción
+  },
+  comment: {
+    flexShrink: 0, // Evitar que la descripción se expanda
+    maxWidth: '400px', // Ancho máximo para la descripción
+    marginLeft: '20px', // Ajuste el espaciado como desee
+    color: '#000000', // Color opcional para el texto adicionalho máximo para la descripción
   },
 };
 
-const games = [
-  {
-    _id: 1,
-    name: "Juego 1",
-    price: 29.99,
-    year: 2020,
-    image: "https://via.placeholder.com/200",
-    characters: ["1", "2"], // IDs de los personajes
-  },
-  {
-    _id: 2,
-    name: "Juego 2",
-    price: 39.99,
-    year: 2021,
-    image: "https://via.placeholder.com/200",
-    characters: ["3", "4"], // IDs de los personajes
-  },
-  // otros juegos
-];
-const GameList = () => {
-  const { games } = useContext(GameContext);
+export const GameList = ({ addToCart }) => {
+  const [games, setGames] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/v1/games/getAll')
+      .then(response => {
+        setGames(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching games:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div>Cargando...</div>;
+  if (games.length === 0) return <div>No hay juegos disponibles</div>;
 
   return (
     <div style={styles.gameList}>
       <h1>Lista de Videojuegos</h1>
-      <ul>
-        {games.map(game => (
-          <li key={game._id} style={styles.gameItem}>
-            {/* Renderiza el componente GameCard en lugar de un enlace */}
-            <GameCard game={game} />
-          </li>
-        ))}
-      </ul>
+      {games.map(game => (
+        <div key={game._id} style={styles.gameItemContainer}>
+          <div style={styles.gameItem}>
+            <GameCard game={game} addToCart={addToCart} /> 
+          </div>
+          <div style={styles.comment}>
+            <p>Este Juego es increible: {game.name}</p>
+            
+            {/* Aquí puedes agregar cualquier otro texto adicional que desees */}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
