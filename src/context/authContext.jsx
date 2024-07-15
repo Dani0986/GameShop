@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const login = (userData) => {
     setUser(userData);
   };
+  
 
   const logout = () => {
     setUser(null);

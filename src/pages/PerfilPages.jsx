@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export const PerfilPages = () => {
   const { user, logout } = useAuth();
-  const usuarios = useUsuarios();
+  const { usuarios } = useUsuarios();
   const { comentarios, dispatch } = useComentarios(); // Obtiene comentarios y el dispatcher
   const [usuario, setUsuario] = useState(null);
   const [fotoPerfil, setFotoPerfil] = useState('');

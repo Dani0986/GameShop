@@ -2,7 +2,7 @@
 import { Navigate, useOutlet } from "react-router-dom";
 
 //* improtamos el contexto, para saber si hay o no usuario, para saber si es portegido 
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../Hooks/useAuth";
 
 
 

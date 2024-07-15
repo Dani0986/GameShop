@@ -33,6 +33,7 @@ const App = () => {
               <ComentariosProvider> {/* Asegúrate de que esta etiqueta abre aquí */}
                 <div style={styles.app}>
                   <Navbar />
+                  
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/games" element={<GameList />} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../Hooks/useAuth';
 import { Navigate, useOutlet } from 'react-router-dom';
 
 export const HomeLayout = ({ children }) => {

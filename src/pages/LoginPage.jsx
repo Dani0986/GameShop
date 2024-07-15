@@ -1,25 +1,29 @@
+// src/pages/LoginPage.jsx
+
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Asegúrate de importar Link desde react-router-dom
-import { useAuth } from '../Hooks/useAuth';
-import { useUsuarios } from '../Hooks/useUsuarios';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../Hooks/useAuth'; // Asegúrate de importar useAuth desde el lugar correcto
 
 export const LoginPage = () => {
-  const { setUsuario, usuarios } = useUsuarios();
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const { login } = useAuth(); // Obtén la función login desde el contexto de autenticación
+  const navigate = useNavigate(); // Hook para la navegación programática
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const usuario = usuarios.find(u => u.Email === email && u.Contrasena === password);
-    if (usuario) {
-      setUsuario(usuario);
-      login(usuario);
-      navigate('/'); // Redirige a la página principal o donde sea necesario después del login
-    } else {
-      console.log('Credenciales incorrectas');
-    }
+    
+    // Simulación de datos de usuario (reemplazar con lógica real de autenticación)
+    const userData = {
+      email,
+      // Aquí puedes agregar más datos del usuario si es necesario
+    };
+
+    // Llama a la función login del contexto de autenticación
+    login(userData);
+
+    // Redirige a la página principal después del login exitoso
+    navigate('/'); // Cambia la ruta según tu aplicación
   };
 
   return (
@@ -36,7 +40,6 @@ export const LoginPage = () => {
         </div>
         <button type="submit">Iniciar sesión</button>
       </form>
-      <p>¿No tienes una cuenta? <Link to="/registro">Regístrate</Link></p> {/* Aquí se utiliza Link correctamente */}
     </div>
   );
 };
