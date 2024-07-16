@@ -7,16 +7,23 @@ const styles = {
   gameList: {
     padding: '20px',
     backgroundColor: 'lightgray',
+    
   },
   gameItemContainer: {
     marginBottom: '20px',
     padding: '10px',
+    width: '80%', // Ancho del contenedor principal
+    maxWidth: '800px', // Máximo ancho del contenedor
     display: 'flex',
     alignItems: 'flex-start', // Alinear al inicio para ajustar las descripciones
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Sombra suave
   },
   gameItem: {
     flex: 1, // La tarjeta ocupará todo el espacio disponible
-    marginRight: '20px', // Espacio entre la tarjeta y la descripción
+    marginRight: '20px',
+    // Espacio entre la tarjeta y la descripción
   },
   comment: {
     flexShrink: 0, // Evitar que la descripción se expanda
@@ -65,7 +72,7 @@ const GameList = ({ addToCart }) => {
             <GameCard game={game} addToCart={addToCart} />
           </div>
           <div style={styles.comment}>
-            <p>Este Juego es increíble: {game.name}</p>
+            
             <h3>Comentarios</h3>
             <ul>
               {comentarios

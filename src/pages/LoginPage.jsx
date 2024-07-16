@@ -1,29 +1,21 @@
 // src/pages/LoginPage.jsx
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../Hooks/useAuth'; // Asegúrate de importar useAuth desde el lugar correcto
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../Hooks/useAuth';
 
 export const LoginPage = () => {
-  const { login } = useAuth(); // Obtén la función login desde el contexto de autenticación
-  const navigate = useNavigate(); // Hook para la navegación programática
+  const { login, loading, error } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Simulación de datos de usuario (reemplazar con lógica real de autenticación)
-    const userData = {
-      email,
-      // Aquí puedes agregar más datos del usuario si es necesario
-    };
-
-    // Llama a la función login del contexto de autenticación
-    login(userData);
-
-    // Redirige a la página principal después del login exitoso
-    navigate('/'); // Cambia la ruta según tu aplicación
+    await login(email, password);
+    if (!error) {
+      navigate('/');
+    }
   };
 
   return (
@@ -32,16 +24,35 @@ export const LoginPage = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Correo:</label>
-          <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={loading}
+          />
         </div>
         <div>
           <label htmlFor="password">Contraseña:</label>
-          <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            disabled={loading}
+          />
         </div>
-        <button type="submit">Iniciar sesión</button>
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+        <button type="submit" disabled={loading}>
+          {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
+        </button>
       </form>
+      <p>¿No tienes cuenta? <Link to="/register">Regístrate ahora</Link></p>
     </div>
   );
 };
 
 export default LoginPage;
+
