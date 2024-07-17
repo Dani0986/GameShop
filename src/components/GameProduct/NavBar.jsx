@@ -3,11 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EmailIcon from '@mui/icons-material/Email'; // Importa el ícono de email de Material-UI
 import CartMenu from '../../cart/CartMenu';
 import { useCart } from '../../context/cartContext';
 import { useAuth } from '../../Hooks/useAuth';
-import axios from 'axios'; // Importar Axios para hacer solicitudes HTTP
-import GameCard from '../GameProduct/GameCard'; // Importar GameCard desde su ubicación correcta
+import axios from 'axios';
+import GameCard from '../GameProduct/GameCard';
 
 const styles = {
   navbar: {
@@ -67,6 +68,10 @@ const styles = {
     marginTop: '20px',
     padding: '0 20px',
   },
+  attentionText: {
+    fontSize: '12px', // Tamaño de fuente personalizado para "Atención al cliente"
+    marginLeft: '5px', // Espacio izquierdo para separar el texto del ícono
+  },
 };
 
 const Navbar = () => {
@@ -78,13 +83,12 @@ const Navbar = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [games, setGames] = useState([]); // Estado para almacenar juegos
-  const [loading, setLoading] = useState(false); // Estado para indicar si está cargando
-  const [searchResults, setSearchResults] = useState([]); // Estado para almacenar los resultados de búsqueda
+  const [games, setGames] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Función para obtener todos los juegos al cargar la página
     axios.get('http://localhost:8080/api/v1/games/getAll')
       .then(response => {
         setGames(response.data);
@@ -94,7 +98,7 @@ const Navbar = () => {
         console.error('Error fetching games:', error);
         setLoading(false);
       });
-  }, []); // Se ejecuta solo una vez al cargar el componente
+  }, []);
 
   const handleCartClick = () => {
     setCartOpen(!cartOpen);
@@ -128,7 +132,7 @@ const Navbar = () => {
       const response = await axios.get('http://localhost:8080/api/v1/games/getAll');
       const filteredGames = response.data.filter(game => game.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      setSearchResults(filteredGames); // Almacenar los resultados de búsqueda
+      setSearchResults(filteredGames);
       setLoading(false);
     } catch (error) {
       console.error('Error searching games:', error);
@@ -139,6 +143,10 @@ const Navbar = () => {
   const clearSearchResults = () => {
     setSearchResults([]);
     setSearchQuery('');
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = 'mailto:tucorreo@example.com'; // Reemplaza con tu dirección de correo electrónico
   };
 
   return (
@@ -225,6 +233,10 @@ const Navbar = () => {
               Limpiar búsqueda
             </button>
           )}
+          <IconButton onClick={handleEmailClick} style={{ color: 'white', marginLeft: '20px' }}>
+            <div style={styles.attentionText}>Atencion al Cliente</div>
+            <EmailIcon />
+          </IconButton>
         </div>
       </nav>
 
