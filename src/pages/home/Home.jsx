@@ -6,7 +6,7 @@ const styles = {
     textAlign: 'center',
     minHeight: '100vh',
     position: 'relative',
-    backgroundImage: `url('https://res.cloudinary.com/duhbskepz/image/upload/v1710064583/BackEnd/kilohnlry5icmulazg4p.jpg')`,
+    backgroundImage: `url('https://res.cloudinary.com/duhbskepz/image/upload/v1710064906/BackEnd/frh4xov2tnqkqk8svmyl.jpg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center bottom',
     backgroundAttachment: 'fixed',
