@@ -7,8 +7,6 @@ import { BaseTheme } from "./theme/base";
 import { Home } from './pages/home/Home';
 import GameList from './components/GameProduct/GameList';
 import GameDetail from './components/GameProduct/GameDetail';
-
-import MainPage from './pages/MainPage';
 import RegistroPage from './pages/RegistroPage';
 import LoginPage from './pages/LoginPage';
 import { CartProvider } from './context/cartContext';
@@ -32,15 +30,14 @@ const App = () => {
             <GameProvider>
               <ComentariosProvider> {/* Asegúrate de que esta etiqueta abre aquí */}
                 <div style={styles.app}>
-                  <Navbar />
-                  
+                  <Navbar />                  
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/games" element={<GameList />} />
                     <Route path="/games/:id" element={<GameDetail />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegistroPage />} />
-                    <Route path="/main" element={<MainPage />} />
+                    
                     <Route path="/registro" element={<RegistroPage />} />
                     <Route path="/login" element={<LoginPage />} />
                   </Routes>

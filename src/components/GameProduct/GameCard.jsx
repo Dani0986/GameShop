@@ -10,13 +10,16 @@ import {
 } from '@mui/material';
 import { CharactersContext } from '../../context/CharacterContext';
 import { useCart } from '../../context/cartContext';
+import CustomModal from '../../context/CustomModal'; // Asegúrate de que la ruta sea correcta
 
 const GameCard = ({ game, addToCart, user }) => {
   const characters = useContext(CharactersContext);
-  const { addToCart: addToCartContext } = useCart(); // Renombrar la función para evitar conflictos de nombres
+  const { addToCart: addToCartContext } = useCart();
 
   const [showCharacters, setShowCharacters] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false); // Estado para controlar el modal
+  const [modalMessage, setModalMessage] = useState(''); // Estado para el mensaje del modal
 
   const handleToggleCharacters = () => {
     setShowCharacters(!showCharacters);
@@ -28,100 +31,108 @@ const GameCard = ({ game, addToCart, user }) => {
 
   const handleAddToCart = () => {
     if (!user) {
-      alert('Debes iniciar sesión para añadir juegos al carrito.');
+      setModalMessage('Debes iniciar sesión para añadir juegos al carrito.');
+      setModalOpen(true);
       return;
     }
-    addToCartContext(game); // Llama a la función addToCart del contexto solo si el usuario está autenticado
+    addToCartContext(game);
     console.log(`Juego añadido al carrito: ${game.name}`);
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   return (
-    <Card
-      sx={{
-        maxWidth: 500,
-        borderRadius: '20px',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-        transition: '0.3s ease-in-out',
-        '&:hover': { boxShadow: '0 5px 15px rgba(0,0,0,0.2)' },
-      }}
-    >
-      <CardActionArea onClick={handleToggleCharacters}>
-        {game.image && (
-          <CardMedia
-            component="img"
-            height="200"
-            image={game.image}
-            alt={game.name}
-            onLoad={handleImageLoaded}
-            sx={{
-              objectFit: 'cover',
-              borderRadius: '20px 20px 0 0',
-              display: imageLoading ? 'none' : 'block',
-            }}
-          />
-        )}
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="div" noWrap>
-            {game.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Año: {game.year}
-          </Typography>
-          {game.score !== undefined ? (
-            <Typography variant="h6" component="div" sx={{ paddingTop: '8px' }}>
-              Precio: {game.score} Euros
-            </Typography>
-          ) : (
-            <Typography variant="h6" component="div" sx={{ paddingTop: '8px' }}>
-              Precio no disponible
-            </Typography>
+    <>
+      <Card
+        sx={{
+          maxWidth: 500,
+          borderRadius: '20px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          transition: '0.3s ease-in-out',
+          '&:hover': { boxShadow: '0 5px 15px rgba(0,0,0,0.2)' },
+        }}
+      >
+        <CardActionArea onClick={handleToggleCharacters}>
+          {game.image && (
+            <CardMedia
+              component="img"
+              height="200"
+              image={game.image}
+              alt={game.name}
+              onLoad={handleImageLoaded}
+              sx={{
+                objectFit: 'cover',
+                borderRadius: '20px 20px 0 0',
+                display: imageLoading ? 'none' : 'block',
+              }}
+            />
           )}
-          {showCharacters && (
-            <div>
-              <Typography variant="subtitle1" sx={{ marginTop: '10px' }}>
-                Mejores Personajes:
+          <CardContent>
+            <Typography gutterBottom variant="h6" component="div" noWrap>
+              {game.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Año: {game.year}
+            </Typography>
+            {game.score !== undefined ? (
+              <Typography variant="h6" component="div" sx={{ paddingTop: '8px' }}>
+                Precio: {game.score} Euros
               </Typography>
-              <ul>
-                {characters
-                  .filter(character => game.characters.includes(character._id))
-                  .map(character => (
-                    <li key={character._id}>
-                      <CardMedia
-                        component="img"
-                        height="100"
-                        image={character.image}
-                        alt={character.name}
-                        sx={{
-                          objectFit: 'cover',
-                          borderRadius: '10px',
-                          marginRight: '10px',
-                        }}
-                      />
-                      <Typography variant="body2">{character.name}</Typography>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          )}
-        </CardContent>
-      </CardActionArea>
-      <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ borderRadius: '20px' }}
-          onClick={handleAddToCart} // Manejar la función de añadir al carrito
-        >
-          Añadir al carrito
-        </Button>
-      </CardActions>
-    </Card>
+            ) : (
+              <Typography variant="h6" component="div" sx={{ paddingTop: '8px' }}>
+                Precio no disponible
+              </Typography>
+            )}
+            {showCharacters && (
+              <div>
+                <Typography variant="subtitle1" sx={{ marginTop: '10px' }}>
+                  Mejores Personajes:
+                </Typography>
+                <ul>
+                  {characters
+                    .filter(character => game.characters.includes(character._id))
+                    .map(character => (
+                      <li key={character._id}>
+                        <CardMedia
+                          component="img"
+                          height="100"
+                          image={character.image}
+                          alt={character.name}
+                          sx={{
+                            objectFit: 'cover',
+                            borderRadius: '10px',
+                            marginRight: '10px',
+                          }}
+                        />
+                        <Typography variant="body2">{character.name}</Typography>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
+          </CardContent>
+        </CardActionArea>
+        <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ borderRadius: '20px' }}
+            onClick={handleAddToCart}
+          >
+            Añadir al carrito
+          </Button>
+        </CardActions>
+      </Card>
+
+      {/* Modal para mostrar el mensaje */}
+      <CustomModal open={modalOpen} onClose={handleCloseModal} message={modalMessage} />
+    </>
   );
 };
 
 export default GameCard;
-
-
 
 
 

@@ -14,15 +14,18 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import { CharactersProvider } from './context/CharacterContext';
 import { UsuariosProvider } from './context/UsuariosContext';
+import { CartProvider } from './context/cartContext'; 
 import './index.css';
 
 // Utilizando ReactDOM.createRoot
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-     <UsuariosProvider>
-    <CharactersProvider>
-      <App />
-    </CharactersProvider>
+    <UsuariosProvider>
+      <CharactersProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </CharactersProvider>
     </UsuariosProvider>
   </React.StrictMode>
 );

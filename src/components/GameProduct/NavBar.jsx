@@ -74,7 +74,7 @@ const styles = {
   },
 };
 
-const Navbar = () => {
+export const Navbar = () => {
   const { cartItems, removeItem } = useCart();
   const { user, logout, login } = useAuth();
   const [cartOpen, setCartOpen] = useState(false);

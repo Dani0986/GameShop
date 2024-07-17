@@ -14,11 +14,22 @@ export const CartProvider = ({ children }) => {
     setCartItems(updatedCart);
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  const pay = () => {
+    clearCart();
+    console.log("Pago realizado con éxito");
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeItem }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeItem, pay }}>
       {children}
     </CartContext.Provider>
   );
 };
 
-export const useCart = () => useContext(CartContext);
+export const useCart = () => {
+  return useContext(CartContext);
+};

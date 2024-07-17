@@ -9,10 +9,11 @@ import {
   Typography,
   Divider,
   IconButton,
+  Button,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const CartMenu = ({ items, onClose, removeItem }) => {
+const CartMenu = ({ items, onClose, removeItem, handleOpenCompra }) => {
   const handleRemoveItem = (itemId) => {
     removeItem(itemId);
   };
@@ -20,10 +21,7 @@ const CartMenu = ({ items, onClose, removeItem }) => {
   return (
     <Drawer anchor="right" open={true} onClose={onClose}>
       <List sx={{ width: 300, padding: "20px" }}>
-        <Typography
-          variant="h6"
-          sx={{ textAlign: "center", marginBottom: "10px" }}
-        >
+        <Typography variant="h6" sx={{ textAlign: "center", marginBottom: "10px" }}>
           Carrito de compras
         </Typography>
         <Divider />
@@ -37,10 +35,7 @@ const CartMenu = ({ items, onClose, removeItem }) => {
               <ListItemAvatar>
                 <Avatar alt={item.name} src={item.image} />
               </ListItemAvatar>
-              <ListItemText
-                primary={item.name}
-                secondary={`Precio: ${item.score} Euros`}
-              />
+              <ListItemText primary={item.name} secondary={`Precio: ${item.score} Euros`} />
               <IconButton
                 edge="end"
                 aria-label="delete"
@@ -51,6 +46,18 @@ const CartMenu = ({ items, onClose, removeItem }) => {
             </ListItem>
           ))
         )}
+        <Divider />
+        <ListItem>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={items.length === 0}
+            onClick={handleOpenCompra}
+          >
+            Pagar
+          </Button>
+        </ListItem>
       </List>
     </Drawer>
   );
