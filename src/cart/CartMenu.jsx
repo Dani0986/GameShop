@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Drawer,
   List,
@@ -12,8 +12,21 @@ import {
   Button,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PaymentModal from "../context/PaymentModal";
+import { useCart } from "../../src/context/cartContext";
 
-const CartMenu = ({ items, onClose, removeItem, handleOpenCompra }) => {
+const CartMenu = ({ items, onClose, removeItem }) => {
+  const { pay } = useCart();
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenCompra = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseCompra = () => {
+    setOpenModal(false);
+  };
+
   const handleRemoveItem = (itemId) => {
     removeItem(itemId);
   };
@@ -59,10 +72,9 @@ const CartMenu = ({ items, onClose, removeItem, handleOpenCompra }) => {
           </Button>
         </ListItem>
       </List>
+      <PaymentModal open={openModal} onClose={handleCloseCompra} />
     </Drawer>
   );
 };
 
 export default CartMenu;
-
-

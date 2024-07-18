@@ -10,9 +10,9 @@ const styles = {
   gameList: {
     padding: '20px',
     backgroundColor: 'lightgray',
+    
   },
   gameItemContainer: {
-    marginBottom: '25px',
     padding: '20px',
     width: '100%',
     maxWidth: '60%',
@@ -22,6 +22,7 @@ const styles = {
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     margin: '0 auto',
+    border: '1px solid black',
   },
   gameItem: {
     flex: 1,
@@ -80,7 +81,21 @@ const GameList = () => {
 
   return (
     <div style={styles.gameList}>
-      <h1 style={{ textAlign: 'center', fontWeight: 'bold' }}>Lista de Videojuegos</h1>
+      <div style={{ 
+  display: 'flex', 
+  justifyContent: 'center', 
+  textAlign: 'center' 
+}}>
+  <h1 style={{ 
+    fontWeight: 'bold', 
+    backgroundColor: '#A70084', 
+    padding: '10px 60px', 
+    borderRadius: '8px', 
+    marginBottom: '20px', // Ajusta según sea necesario
+    color: 'white' // Cambia el color del texto a blanco
+  }}>Lista de Videojuegos</h1>
+</div>
+
       {games.map(game => (
         <div key={game._id} style={styles.gameItemContainer}>
           <div style={styles.gameItem}>

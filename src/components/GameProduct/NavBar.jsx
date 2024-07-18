@@ -146,7 +146,7 @@ export const Navbar = () => {
   };
 
   const handleEmailClick = () => {
-    window.location.href = 'mailto:tucorreo@example.com'; // Reemplaza con tu dirección de correo electrónico
+    window.location.href = 'mailto:daniosr1986@gmail.com'; // Reemplaza con tu dirección de correo electrónico
   };
 
   return (

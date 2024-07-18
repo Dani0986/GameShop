@@ -49,6 +49,8 @@ const GameCard = ({ game, addToCart, user }) => {
         sx={{
           maxWidth: 500,
           borderRadius: '20px',
+          
+          border: '1px solid black',
           boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
           transition: '0.3s ease-in-out',
           '&:hover': { boxShadow: '0 5px 15px rgba(0,0,0,0.2)' },
@@ -58,7 +60,7 @@ const GameCard = ({ game, addToCart, user }) => {
           {game.image && (
             <CardMedia
               component="img"
-              height="200"
+              height="280"
               image={game.image}
               alt={game.name}
               onLoad={handleImageLoaded}
@@ -97,7 +99,7 @@ const GameCard = ({ game, addToCart, user }) => {
                       <li key={character._id}>
                         <CardMedia
                           component="img"
-                          height="100"
+                          height="220"
                           image={character.image}
                           alt={character.name}
                           sx={{
